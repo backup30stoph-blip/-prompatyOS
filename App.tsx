@@ -4,7 +4,7 @@ import { AuthProvider } from './contexts/AuthContext';
 import { SearchProvider } from './contexts/SearchContext';
 import { ToastProvider } from './contexts/ToastContext';
 import { ApiKeyProvider } from './contexts/ApiKeyContext';
-import { supabase } from '../services/supabaseClient.ts'
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import MainLayout from './components/layout/MainLayout';
 import ProtectedRoute from './components/router/ProtectedRoute';
@@ -55,6 +55,7 @@ const App: React.FC = () => {
           <ApiKeyProvider>
             <Router>
                 <ScrollToTop />
+                <SpeedInsights />
                 <MainLayout>
                   <Routes>
                     <Route path="/" element={<HomePage />} />
@@ -81,29 +82,6 @@ const App: React.FC = () => {
         </SearchProvider>
       </AuthProvider>
     </ToastProvider>
-    function Page() {
-  const [todos, setTodos] = useState([])
-
-  useEffect(() => {
-    function getTodos() {
-      const { data: todos } = await supabase.from('todos').select()
-
-      if (todos.length > 1) {
-        setTodos(todos)
-      }
-    }
-
-    getTodos()
-  }, [])
-
-  return (
-    <div>
-      {todos.map((todo) => (
-        <li key={todo}>{todo}</li>
-      ))}
-    </div>
-  )
-}
   );
 };
 

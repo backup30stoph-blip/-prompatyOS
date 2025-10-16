@@ -11,7 +11,12 @@ export const getAdminPrompts = async (): Promise<Prompt[]> => {
     console.error('Error fetching prompts:', error);
     throw error;
   }
-  return data || [];
+  // FIX: The type error indicates Supabase returns the related author as an array.
+  // We map the data to extract the first author object and filter out any prompts
+  // where an author might be missing to ensure type compatibility with `Prompt[]`.
+  return (data || [])
+    .map((p: any) => ({ ...p, author: p.author?.[0] }))
+    .filter(p => p.author) as Prompt[];
 };
 
 export const updatePromptVerification = async (id: string, verified: boolean): Promise<Prompt> => {
@@ -27,7 +32,18 @@ export const updatePromptVerification = async (id: string, verified: boolean): P
     throw error;
   }
   if (!data) throw new Error("Prompt not found after update.");
-  return data;
+  
+  // FIX: The type error indicates Supabase returns the related author as an array.
+  // We transform the data to extract the first author object to match the `Prompt` type.
+  const promptData: any = data;
+  if (!promptData.author?.[0]) {
+    throw new Error('Author not found for the prompt after update.');
+  }
+
+  return {
+    ...promptData,
+    author: promptData.author[0],
+  };
 };
 
 export const deletePromptById = async (id: string): Promise<void> => {
