@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prompaty (برمباتي)</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <!-- Trumbowyg CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/ui/trumbowyg.min.css" integrity="sha512-F/k7cMPARGOFFJ9Jo+8ihWxxDolqy4grr/CgU2LwigNYQvVoXe2eN3j6YfWW4A/s6AE2pcO9pKU/b5U2LzJbrw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+      body {
+        font-family: 'Tajawal', sans-serif;
+      }
+      @keyframes slide-in-down {
+        from {
+          transform: translateY(-20px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+      .animate-slide-in-down {
+        animation: slide-in-down 0.3s ease-out forwards;
+      }
+      /* For Navbar underline effect */
+      .nav-link-underline {
+        position: relative;
+        text-decoration: none;
+      }
+      .nav-link-underline::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 2px;
+        bottom: -4px; /* Adjust position */
+        left: 0;
+        background-color: #0A2647; /* Primary color */
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+      }
+      .nav-link-underline:hover::after,
+      .nav-link-underline.active::after {
+        transform: scaleX(1);
+        transform-origin: bottom left;
+      }
+      /* Trumbowyg Responsive Styles */
+      .trumbowyg-box, .trumbowyg-editor {
+          width: 100% !important;
+          min-height: 250px;
+          box-sizing: border-box;
+      }
+      .trumbowyg-button-pane {
+          display: flex;
+          flex-wrap: wrap;
+      }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.4",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.24.0",
+    "@supabase/supabase-js": "https://aistudiocdn.com/@supabase/supabase-js@^2.44.4"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-[#F8F9FA] text-[#344054]">
+    <div id="root"></div>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Trumbowyg -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/trumbowyg.min.js" integrity="sha512-YJgZG+6o3xSc0k5wv774GS+W1gx0vuSI/kr0E0UylL/Qg/noNspPtYwHPN9q6n59CTR/uhgXfjDXLTRI+uIryg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <!-- Trumbowyg Arabic Language -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/langs/ar.min.js" integrity="sha512-o/6l/l0UBpQJsoH971YtPTU4v8c3Jt/u7fnAh/Y4T53a4V+l+4LMX6IJA/b2g9ur6QZkmyo1c2N2v6bYwz9Yew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <script>
+      // Set the SVG path for Trumbowyg icons from CDN to fix loading issues.
+      if (window.jQuery) {
+        jQuery.trumbowyg.svgPath = 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.27.3/ui/icons.svg';
+      }
+    </script>
+    
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>
