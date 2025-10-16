@@ -1,21 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 
-// IMPORTANT: You must create a .env file in the root of your project
-// and add your Supabase credentials for this to work.
-// Example .env file:
-// VITE_SUPABASE_URL="https://your-project-id.supabase.co"
-// VITE_SUPABASE_ANON_KEY="your-public-anon-key"
+const supabaseUrl = 'https://dseaxuoybveharsxxvnd.supabase.co';
+const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzZWF4dW95YnZlaGFyc3h4dm5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA1NTY3ODIsImV4cCI6MjA3NjEzMjc4Mn0.KI9gGb7b_SSAw7DZBMgAo0mfyenzueN9trL893mEkH8';
 
-// FIX: Cast `import.meta` to `any` to resolve TypeScript error about missing 'env' property.
-const supabaseUrl = (import.meta as any).env.VITE_SUPABASE_URL;
-const supabaseAnonKey = (import.meta as any).env.VITE_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  // Provide a better error message in the UI if possible
-  console.error("Supabase URL and Anon Key are missing. Make sure to set them in your .env file.");
-  // We don't throw an error here to allow the app to render a message
-  // but the 'supabase' export will be null.
-}
-
-// The export is conditional to avoid crashing the app if env vars are missing
-export const supabase = supabaseUrl && supabaseAnonKey ? createClient(supabaseUrl, supabaseAnonKey) : null;
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);

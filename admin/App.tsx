@@ -3,6 +3,7 @@ import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { AuthProvider, useAdminAuth } from './contexts/AuthContext';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
+import PromptsManagementPage from './pages/PromptsManagementPage';
 import AdminLayout from './components/layout/AdminLayout';
 import ProtectedRoute from './router/ProtectedRoute';
 
@@ -21,6 +22,11 @@ const AppRoutes: React.FC = () => {
                 <Route path="/dashboard" element={
                     <AdminLayout>
                         <DashboardPage />
+                    </AdminLayout>
+                } />
+                <Route path="/prompts" element={
+                    <AdminLayout>
+                        <PromptsManagementPage />
                     </AdminLayout>
                 } />
             </Route>

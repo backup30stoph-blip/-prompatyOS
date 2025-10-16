@@ -1,5 +1,5 @@
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
-import { mockUsers } from '../services/mockData';
+import { supabase } from '../services/supabaseClient';
 import { User } from '../types';
 
 interface AuthContextType {
@@ -16,31 +16,56 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // MOCK AUTHENTICATION: Automatically log in the test user on load.
   useEffect(() => {
-    // Simulate checking for an active session.
-    setTimeout(() => {
-      setUser(mockUsers[0]); // Set the first mock user as the logged-in user.
+    const getSessionAndProfile = async () => {
+      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
+      if (session?.user) {
+        const { data: profile } = await supabase
+          .from('users')
+          .select('*')
+          .eq('id', session.user.id)
+          .single();
+        setUser(profile as User | null);
+      }
       setLoading(false);
-    }, 300); // Short delay to mimic async behavior.
+    };
+
+    getSessionAndProfile();
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(
+      async (_event, session) => {
+        if (session?.user) {
+          const { data: profile } = await supabase
+            .from('users')
+            .select('*')
+            .eq('id', session.user.id)
+            .single();
+          setUser(profile as User | null);
+        } else {
+          setUser(null);
+        }
+        setLoading(false);
+      }
+    );
+
+    return () => {
+      subscription?.unsubscribe();
+    };
   }, []);
 
-  // Mock login/logout functions are kept for potential manual use
-  const login = () => {
-    console.log("Mock login triggered.");
-    setLoading(true);
-    setTimeout(() => {
-        setUser(mockUsers[0]); // Log in as the first mock user
-        setLoading(false);
-    }, 500);
+  const login = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'github',
+    });
+    if (error) console.error('Error logging in with GitHub:', error);
   };
 
-  const logout = () => {
-    console.log("Mock logout triggered.");
+  const logout = async () => {
+    await supabase.auth.signOut();
     setUser(null);
   };
   
-  // Mock stats for the profile dropdown (can be integrated later)
+  // Mock stats for the profile dropdown can remain for now
   const stats = {
       level: 5,
       level_icon: '🌟',
