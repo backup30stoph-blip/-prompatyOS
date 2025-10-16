@@ -1,6 +1,13 @@
 import { createClient } from '@supabase/supabase-js';
 
-const supabaseUrl = 'https://dseaxuoybveharsxxvnd.supabase.co';
-const supabaseAnonKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRzZWF4dW95YnZlaGFyc3h4dm5kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA1NTY3ODIsImV4cCI6MjA3NjEzMjc4Mn0.KI9gGb7b_SSAw7DZBMgAo0mfyenzueN9trL893mEkH8';
+// FIX: Removed vite/client reference that was causing an error, and
+// cast `import.meta` to `any` to access environment variables without TypeScript errors.
+const supabaseUrl = (import.meta as any).env.VITE_SUPABASE_URL;
+const supabaseAnonKey = (import.meta as any).env.VITE_SUPABASE_ANON_KEY;
+
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error("Supabase URL and anonymous key are required for the admin panel.");
+}
 
 export const supabase = createClient(supabaseUrl, supabaseAnonKey);
