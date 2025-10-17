@@ -18,6 +18,7 @@ import {
   promptLanguageTranslations
 } from '../types';
 import AdsenseAd from '../components/AdsenseAd';
+import PromptCardSkeleton from '../components/PromptCardSkeleton';
 
 type SortOption = 'newest' | 'oldest' | 'alphabetical';
 const PAGE_SIZE = 12;
@@ -59,7 +60,7 @@ const FilterPanel = ({
   return (
     <div className="space-y-8">
       <div>
-        <h3 className="font-semibold text-[#1C2B3A] text-lg mb-4">الفئة</h3>
+        <h3 className="font-semibold text-slate-800 text-lg mb-4">الفئة</h3>
         <div className="space-y-3">
           {Object.values(PromptCategory).map(cat => (
             <label key={cat} className="flex items-center space-x-2 space-x-reverse cursor-pointer">
@@ -67,15 +68,15 @@ const FilterPanel = ({
                 type="checkbox"
                 checked={selectedCategories.includes(cat)}
                 onChange={() => handleCategoryChange(cat)}
-                className="rounded accent-[#0A2647] w-4 h-4"
+                className="rounded accent-orange-600 w-4 h-4"
               />
-              <span className="text-gray-700">{promptCategoryTranslations[cat]}</span>
+              <span className="text-slate-700">{promptCategoryTranslations[cat]}</span>
             </label>
           ))}
         </div>
       </div>
       <div>
-        <h3 className="font-semibold text-[#1C2B3A] text-lg mb-4">المستوى</h3>
+        <h3 className="font-semibold text-slate-800 text-lg mb-4">المستوى</h3>
         <div className="space-y-3">
            <label className="flex items-center space-x-2 space-x-reverse cursor-pointer">
               <input 
@@ -84,9 +85,9 @@ const FilterPanel = ({
                 value="all"
                 checked={selectedLevel === 'all'}
                 onChange={(e) => setSelectedLevel(e.target.value)}
-                className="accent-[#0A2647] w-4 h-4"
+                className="accent-orange-600 w-4 h-4"
               />
-              <span className="text-gray-700">الكل</span>
+              <span className="text-slate-700">الكل</span>
             </label>
           {Object.values(PromptLevel).map(level => (
             <label key={level} className="flex items-center space-x-2 space-x-reverse cursor-pointer">
@@ -96,15 +97,15 @@ const FilterPanel = ({
                 value={level}
                 checked={selectedLevel === level}
                 onChange={(e) => setSelectedLevel(e.target.value)}
-                className="accent-[#0A2647] w-4 h-4"
+                className="accent-orange-600 w-4 h-4"
               />
-              <span className="text-gray-700">{promptLevelTranslations[level]}</span>
+              <span className="text-slate-700">{promptLevelTranslations[level]}</span>
             </label>
           ))}
         </div>
       </div>
        <div>
-        <h3 className="font-semibold text-[#1C2B3A] text-lg mb-4">اللغة</h3>
+        <h3 className="font-semibold text-slate-800 text-lg mb-4">اللغة</h3>
         <div className="space-y-3">
           {Object.values(PromptLanguage).map(lang => (
             <label key={lang} className="flex items-center space-x-2 space-x-reverse cursor-pointer">
@@ -112,9 +113,9 @@ const FilterPanel = ({
                 type="checkbox"
                 checked={selectedLanguages.includes(lang)}
                 onChange={() => handleLanguageChange(lang)}
-                className="rounded accent-[#0A2647] w-4 h-4"
+                className="rounded accent-orange-600 w-4 h-4"
               />
-              <span className="text-gray-700">{promptLanguageTranslations[lang]}</span>
+              <span className="text-slate-700">{promptLanguageTranslations[lang]}</span>
             </label>
           ))}
         </div>
@@ -232,8 +233,8 @@ const PromptsPage: React.FC = () => {
   return (
     <div className="space-y-12">
       <header className="text-center">
-        <h1 className="text-5xl font-extrabold text-[#1C2B3A]">مكتبة الأوامر</h1>
-        <p className="text-lg text-gray-700 mt-4">ابحث وتصفح في مجموعتنا المتنامية من الأوامر الإبداعية.</p>
+        <h1 className="text-5xl font-extrabold text-slate-900">مكتبة الأوامر</h1>
+        <p className="text-lg text-slate-700 mt-4">ابحث وتصفح في مجموعتنا المتنامية من الأوامر الإبداعية.</p>
       </header>
       
       <div className="my-8">
@@ -257,8 +258,8 @@ const PromptsPage: React.FC = () => {
 
         <main className="md:col-span-3 space-y-6">
           <div className="flex justify-between items-center">
-             <div className="text-sm text-gray-600">
-                عرض {visiblePrompts.length} من {filteredPrompts.length} نتيجة
+             <div className="text-sm text-slate-600">
+                { !loading && `عرض ${visiblePrompts.length} من ${filteredPrompts.length} نتيجة` }
               </div>
             <div className="flex gap-4">
               <Select 
@@ -283,8 +284,8 @@ const PromptsPage: React.FC = () => {
           </div>
 
           {loading ? (
-             <div className="flex justify-center items-center py-20">
-                <Loader2Icon className="w-10 h-10 text-gray-400 animate-spin" />
+             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-6">
+               {Array.from({ length: 6 }).map((_, i) => <PromptCardSkeleton key={i} />)}
              </div>
           ) : error ? (
             <div className="text-center py-16 text-red-600 bg-red-50 border border-red-200 rounded-lg">
@@ -302,12 +303,12 @@ const PromptsPage: React.FC = () => {
                   
                   {visibleCount < filteredPrompts.length && (
                     <div ref={loader} className="flex justify-center items-center py-6">
-                      <Loader2Icon className="w-8 h-8 text-gray-400 animate-spin" />
+                      <Loader2Icon className="w-8 h-8 text-slate-400 animate-spin" />
                     </div>
                   )}
                 </React.Fragment>
               ) : (
-                <div className="text-center py-16 text-gray-500 bg-white border border-gray-200 rounded-lg">
+                <div className="text-center py-16 text-slate-500 bg-white border border-slate-200 rounded-lg">
                     <p>لم يتم العثور على نتائج. حاول تغيير معايير البحث أو التصفية.</p>
                 </div>
               )}
@@ -320,9 +321,9 @@ const PromptsPage: React.FC = () => {
         isOpen={isFilterModalOpen} 
         onClose={() => setIsFilterModalOpen(false)}
       >
-        <div className="flex justify-between items-center p-4 border-b border-gray-200">
-          <h2 className="text-xl font-bold text-[#1C2B3A]">تصفية النتائج</h2>
-          <button onClick={() => setIsFilterModalOpen(false)} className="p-2 text-gray-500 hover:text-gray-800 rounded-full -m-2" aria-label="Close modal">
+        <div className="flex justify-between items-center p-4 border-b border-slate-200">
+          <h2 className="text-xl font-bold text-slate-800">تصفية النتائج</h2>
+          <button onClick={() => setIsFilterModalOpen(false)} className="p-2 text-slate-500 hover:text-slate-800 rounded-full -m-2" aria-label="Close modal">
               <CloseIcon className="w-6 h-6"/>
           </button>
         </div>

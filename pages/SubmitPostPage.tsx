@@ -44,6 +44,7 @@ const SubmitPostPage: React.FC = () => {
             author_id: user.id,
             featured_image: imageUrl || `https://picsum.photos/seed/${generateSlug(title)}/600/400`,
             tags: tags.split(',').map(t => t.trim()).filter(Boolean),
+            reactions: { heart: 0, insightful: 0, funny: 0, fire: 0 },
         };
 
         try {
@@ -61,10 +62,10 @@ const SubmitPostPage: React.FC = () => {
     return (
         <div className="max-w-3xl mx-auto space-y-8">
             <header className="text-center">
-                <h1 className="text-3xl md:text-4xl font-bold text-[#303841]">
+                <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
                     اكتب مقالاً جديدًا
                 </h1>
-                <p className="text-gray-600 mt-2">
+                <p className="text-slate-600 mt-2">
                     شارك خبراتك ومعرفتك مع مجتمع برمباتي.
                 </p>
             </header>
@@ -73,7 +74,7 @@ const SubmitPostPage: React.FC = () => {
                 <Card>
                     <div className="p-6 space-y-6">
                         <div>
-                            <label htmlFor="title" className="block text-sm font-medium text-[#303841] mb-1">عنوان المقال</label>
+                            <label htmlFor="title" className="block text-sm font-medium text-slate-700 mb-1">عنوان المقال</label>
                             <Input 
                                 id="title"
                                 value={title}
@@ -84,7 +85,7 @@ const SubmitPostPage: React.FC = () => {
                         </div>
 
                         <div>
-                            <label htmlFor="content" className="block text-sm font-medium text-[#303841] mb-1">محتوى المقال</label>
+                            <label htmlFor="content" className="block text-sm font-medium text-slate-700 mb-1">محتوى المقال</label>
                             <Textarea
                                 id="content"
                                 value={content}
@@ -93,22 +94,22 @@ const SubmitPostPage: React.FC = () => {
                                 required
                                 rows={15}
                             />
-                            <p className="text-xs text-gray-500 mt-1">يمكنك استخدام HTML بسيط. سيتم تحويل الأسطر الجديدة إلى فقرات.</p>
+                            <p className="text-xs text-slate-500 mt-1">يمكنك استخدام HTML بسيط. سيتم تحويل الأسطر الجديدة إلى فقرات.</p>
                         </div>
                         
                         <div>
-                            <label htmlFor="tags" className="block text-sm font-medium text-[#303841] mb-1">العلامات (Tags)</label>
+                            <label htmlFor="tags" className="block text-sm font-medium text-slate-700 mb-1">العلامات (Tags)</label>
                             <Input
                                 id="tags"
                                 value={tags}
                                 onChange={(e) => setTags(e.target.value)}
                                 placeholder="نصائح, توليد صور, Midjourney"
                             />
-                            <p className="text-xs text-gray-500 mt-1">افصل بين العلامات بفاصلة (,).</p>
+                            <p className="text-xs text-slate-500 mt-1">افصل بين العلامات بفاصلة (,).</p>
                         </div>
 
                         <div>
-                            <label htmlFor="imageUrl" className="block text-sm font-medium text-[#303841] mb-1">رابط الصورة البارزة (اختياري)</label>
+                            <label htmlFor="imageUrl" className="block text-sm font-medium text-slate-700 mb-1">رابط الصورة البارزة (اختياري)</label>
                             <Input
                                 id="imageUrl"
                                 type="url"
@@ -118,7 +119,7 @@ const SubmitPostPage: React.FC = () => {
                             />
                         </div>
 
-                        <div className="pt-4 border-t border-gray-200">
+                        <div className="pt-4 border-t border-slate-200">
                             <Button type="submit" disabled={isSubmitting} className="w-full sm:w-auto">
                                 {isSubmitting ? <><Loader2Icon className="w-5 h-5 me-2 animate-spin"/> جاري النشر...</> : <><EditIcon className="w-5 h-5 me-2"/> نشر المقال</>}
                             </Button>

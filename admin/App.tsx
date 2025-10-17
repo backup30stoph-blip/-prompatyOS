@@ -4,6 +4,7 @@ import { AuthProvider, useAdminAuth } from './contexts/AuthContext';
 import LoginPage from './pages/LoginPage';
 import DashboardPage from './pages/DashboardPage';
 import PromptsManagementPage from './pages/PromptsManagementPage';
+import PostsManagementPage from './pages/PostsManagementPage';
 import AdminLayout from './components/layout/AdminLayout';
 import ProtectedRoute from './router/ProtectedRoute';
 
@@ -27,6 +28,11 @@ const AppRoutes: React.FC = () => {
                 <Route path="/prompts" element={
                     <AdminLayout>
                         <PromptsManagementPage />
+                    </AdminLayout>
+                } />
+                <Route path="/posts" element={
+                    <AdminLayout>
+                        <PostsManagementPage />
                     </AdminLayout>
                 } />
             </Route>

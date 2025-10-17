@@ -4,10 +4,11 @@ import { getPrompts } from '../services/apiService';
 import PromptCard from '../components/PromptCard';
 import Button from '../components/ui/Button';
 import Input from '../components/ui/Input';
-import { ArrowLeftIcon, Loader2Icon, SearchIcon } from '../components/icons';
+import { ArrowLeftIcon, SearchIcon } from '../components/icons';
 import { PromptCategory, promptCategoryTranslations, Prompt } from '../types';
 import AdsenseAd from '../components/AdsenseAd';
 import { useSearch } from '../contexts/SearchContext';
+import PromptCardSkeleton from '../components/PromptCardSkeleton';
 
 const HomePage: React.FC = () => {
   const [prompts, setPrompts] = useState<Prompt[]>([]);
@@ -43,6 +44,24 @@ const HomePage: React.FC = () => {
   }, []);
 
   const categories = Object.values(PromptCategory);
+  
+  const renderLoadingSkeleton = () => (
+    <div className="space-y-24">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <section key={i}>
+          <div className="flex justify-between items-center mb-8 animate-pulse">
+            <div className="h-10 bg-slate-200 rounded w-1/3"></div>
+            <div className="h-6 bg-slate-200 rounded w-24"></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {Array.from({ length: 3 }).map((_, j) => (
+              <PromptCardSkeleton key={j} />
+            ))}
+          </div>
+        </section>
+      ))}
+    </div>
+  );
 
   return (
     <div>
@@ -53,10 +72,10 @@ const HomePage: React.FC = () => {
 
       {/* Hero Section */}
       <section className="text-center pt-8 md:pt-16 pb-20 md:pb-28">
-        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-[#1C2B3A] mb-6 tracking-tight">
+        <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold text-slate-900 mb-6 tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-orange-500 to-amber-500">
           اكتشف أفضل الأوامر لإبداعك
         </h1>
-        <p className="text-base sm:text-lg md:text-xl text-[#344054] max-w-3xl mx-auto mb-10">
+        <p className="text-base sm:text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-10">
           برمباتي هو وجهتك الأولى لاستكشاف ومشاركة أوامر الذكاء الاصطناعي باللغة العربية، مصممة لإطلاق العنان لقدراتك الإبداعية.
         </p>
         <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-12">
@@ -64,24 +83,24 @@ const HomePage: React.FC = () => {
                 <Button className="!px-8 !py-3 !text-lg w-full sm:w-auto">تصفح الأوامر</Button>
             </Link>
              <Link to="/submit">
-                <Button variant="secondary" className="!px-8 !py-3 !text-lg bg-transparent hover:bg-gray-100 w-full sm:w-auto">شارك إبداعك</Button>
+                <Button variant="secondary" className="!px-8 !py-3 !text-lg bg-transparent hover:bg-slate-100 w-full sm:w-auto">شارك إبداعك</Button>
             </Link>
         </div>
       </section>
 
       {/* Search Section */}
       <section className="max-w-3xl mx-auto -mt-24 relative z-10 px-4">
-        <div className="bg-white p-2 rounded-xl shadow-2xl border border-gray-200/50">
+        <div className="bg-white p-2 rounded-xl shadow-2xl border border-slate-200/50">
             <form onSubmit={handleSearchSubmit} className="relative">
                 <div className="absolute inset-y-0 start-0 flex items-center ps-5 pointer-events-none">
-                    <SearchIcon className="w-6 h-6 text-gray-400" />
+                    <SearchIcon className="w-6 h-6 text-slate-400" />
                 </div>
                 <Input
                     type="search"
                     placeholder="ابحث في أكثر من 80 أمرًا..."
                     value={localSearch}
                     onChange={(e) => setLocalSearch(e.target.value)}
-                    className="w-full !p-4 !ps-14 !pe-24 sm:!pe-32 !rounded-lg !text-base sm:!text-lg !border-transparent focus:!ring-2 focus:!ring-[#0A2647]"
+                    className="w-full !p-4 !ps-14 !pe-24 sm:!pe-32 !rounded-lg !text-base sm:!text-lg !border-transparent focus:!ring-2 focus:!ring-orange-600"
                 />
                 <Button type="submit" className="absolute top-1/2 end-2 -translate-y-1/2 !px-4 sm:!px-6 !py-2.5">
                     بحث
@@ -93,9 +112,7 @@ const HomePage: React.FC = () => {
       {/* Prompts Sections Wrapper */}
       <div className="space-y-24 pt-16">
         {loading ? (
-          <div className="flex justify-center items-center py-20">
-            <Loader2Icon className="w-12 h-12 text-gray-400 animate-spin" />
-          </div>
+          renderLoadingSkeleton()
         ) : error ? (
           <div className="text-center py-16 text-red-600 bg-red-50 border border-red-200 rounded-lg">
               <p>{error}</p>
@@ -114,12 +131,12 @@ const HomePage: React.FC = () => {
               <React.Fragment key={category}>
                 <section>
                   <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
-                    <h2 className="text-3xl sm:text-4xl font-bold text-[#1C2B3A]">
+                    <h2 className="text-3xl sm:text-4xl font-bold text-slate-800">
                       {promptCategoryTranslations[category]}
                     </h2>
                     <Link
                       to={`/prompts?category=${category}`}
-                      className="flex items-center gap-2 text-base font-semibold text-[#0A2647] hover:underline flex-shrink-0"
+                      className="flex items-center gap-2 text-base font-semibold text-orange-600 hover:underline flex-shrink-0"
                     >
                       <span>عرض الكل</span>
                       <ArrowLeftIcon className="w-5 h-5" />

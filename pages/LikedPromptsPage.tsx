@@ -3,7 +3,7 @@ import PromptCard from '../components/PromptCard';
 import { LIKED_PROMPTS_KEY } from '../hooks/usePromptLike';
 import { getPromptsByIds } from '../services/apiService';
 import { Prompt } from '../types';
-import { Loader2Icon } from '../components/icons';
+import PromptCardSkeleton from '../components/PromptCardSkeleton';
 
 const LikedPromptsPage: React.FC = () => {
   const [likedPrompts, setLikedPrompts] = useState<Prompt[]>([]);
@@ -42,8 +42,8 @@ const LikedPromptsPage: React.FC = () => {
       </header>
       
       {loading ? (
-        <div className="flex justify-center py-16">
-          <Loader2Icon className="w-8 h-8 animate-spin text-gray-400" />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Array.from({ length: 3 }).map((_, i) => <PromptCardSkeleton key={i} />)}
         </div>
       ) : error ? (
          <div className="text-center py-16 text-red-600">{error}</div>

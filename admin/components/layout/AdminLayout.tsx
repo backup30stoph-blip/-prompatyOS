@@ -15,6 +15,12 @@ const ListIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
   </svg>
 );
 
+const DocumentIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => (
+    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" {...props}>
+      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+    </svg>
+);
+
 
 const Sidebar: React.FC = () => {
     const { logout, profile } = useAdminAuth();
@@ -28,12 +34,12 @@ const Sidebar: React.FC = () => {
     const navLinkClasses = ({ isActive }: { isActive: boolean }) =>
     `flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
       isActive 
-        ? 'bg-gray-900 text-white' 
-        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+        ? 'bg-orange-800 text-white' 
+        : 'text-orange-100 hover:bg-orange-600 hover:text-white'
     }`;
 
     return (
-        <div className="flex h-full min-h-0 flex-col bg-gray-800">
+        <div className="flex h-full min-h-0 flex-col bg-orange-700">
             <div className="flex flex-1 flex-col overflow-y-auto pt-5 pb-4">
                 <div className="flex flex-shrink-0 items-center px-4 text-white">
                     <span className="text-lg font-bold">لوحة تحكم برمباتي</span>
@@ -47,15 +53,19 @@ const Sidebar: React.FC = () => {
                         <ListIcon className="h-5 w-5" />
                         <span>إدارة الأوامر</span>
                     </NavLink>
+                    <NavLink to="/posts" className={navLinkClasses}>
+                        <DocumentIcon className="h-5 w-5" />
+                        <span>إدارة المقالات</span>
+                    </NavLink>
                     {/* Add more links here for Posts, Users etc. */}
                 </nav>
             </div>
-            <div className="flex flex-shrink-0 border-t border-gray-700 p-4">
+            <div className="flex flex-shrink-0 border-t border-orange-800 p-4">
                 <div className="flex-shrink-0 w-full group">
                     <div className="flex items-center">
                         <div>
                             <p className="text-sm font-medium text-white">{profile?.username}</p>
-                            <button onClick={handleLogout} className="text-xs font-medium text-gray-300 group-hover:text-white">
+                            <button onClick={handleLogout} className="text-xs font-medium text-orange-200 group-hover:text-white">
                                 تسجيل الخروج
                             </button>
                         </div>
@@ -69,7 +79,7 @@ const Sidebar: React.FC = () => {
 
 const AdminLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
-    <div className="flex h-screen overflow-hidden bg-gray-100">
+    <div className="flex h-screen overflow-hidden bg-slate-100">
         <aside className="hidden md:flex md:w-64 md:flex-shrink-0">
              <Sidebar />
         </aside>

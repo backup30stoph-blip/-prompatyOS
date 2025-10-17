@@ -1,59 +1,88 @@
-import { supabase } from './supabaseClient';
-import { Prompt } from '../types';
+import { mockPrompts, mockPosts } from '../../services/mockData';
+import { Post, Prompt } from '../types';
+
+// Create a session-specific copy of the mock data so that admin actions
+// like deleting/verifying are reflected during the session.
+let sessionMockPrompts = [...mockPrompts];
+let sessionMockPosts = [...mockPosts];
+
+const delay = (ms: number) => new Promise(res => setTimeout(res, ms));
 
 export const getAdminPrompts = async (): Promise<Prompt[]> => {
-  const { data, error } = await supabase
-    .from('prompts')
-    .select('id, title, category, created_at, verified, author:author_id(id, username)')
-    .order('created_at', { ascending: false });
-
-  if (error) {
-    console.error('Error fetching prompts:', error);
-    throw error;
-  }
-  // FIX: The type error indicates Supabase returns the related author as an array.
-  // We map the data to extract the first author object and filter out any prompts
-  // where an author might be missing to ensure type compatibility with `Prompt[]`.
-  return (data || [])
-    .map((p: any) => ({ ...p, author: p.author?.[0] }))
-    .filter(p => p.author) as Prompt[];
+  await delay(200);
+  // Map the full prompt data to the simpler type used in the admin panel.
+  const adminPrompts: Prompt[] = sessionMockPrompts.map(p => ({
+      id: p.id,
+      title: p.title,
+      category: p.category,
+      author: {
+          id: p.author.id,
+          username: p.author.username,
+      },
+      created_at: p.created_at,
+      verified: p.verified || false,
+  }));
+  return Promise.resolve(adminPrompts.sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime()));
 };
 
 export const updatePromptVerification = async (id: string, verified: boolean): Promise<Prompt> => {
-  const { data, error } = await supabase
-    .from('prompts')
-    .update({ verified })
-    .eq('id', id)
-    .select('id, title, category, created_at, verified, author:author_id(id, username)')
-    .single();
-
-  if (error) {
-    console.error('Error updating prompt verification:', error);
-    throw error;
+  await delay(100);
+  const promptIndex = sessionMockPrompts.findIndex(p => p.id === id);
+  if (promptIndex === -1) {
+      throw new Error("Prompt not found");
   }
-  if (!data) throw new Error("Prompt not found after update.");
   
-  // FIX: The type error indicates Supabase returns the related author as an array.
-  // We transform the data to extract the first author object to match the `Prompt` type.
-  const promptData: any = data;
-  if (!promptData.author?.[0]) {
-    throw new Error('Author not found for the prompt after update.');
-  }
-
-  return {
-    ...promptData,
-    author: promptData.author[0],
+  const originalPrompt = sessionMockPrompts[promptIndex];
+  originalPrompt.verified = verified;
+  
+  const updatedAdminPrompt: Prompt = {
+      id: originalPrompt.id,
+      title: originalPrompt.title,
+      category: originalPrompt.category,
+      author: {
+          id: originalPrompt.author.id,
+          username: originalPrompt.author.username,
+      },
+      created_at: originalPrompt.created_at,
+      verified: originalPrompt.verified,
   };
+
+  return Promise.resolve(updatedAdminPrompt);
 };
 
 export const deletePromptById = async (id: string): Promise<void> => {
-  const { error } = await supabase
-    .from('prompts')
-    .delete()
-    .eq('id', id);
-
-  if (error) {
-    console.error('Error deleting prompt:', error);
-    throw error;
+  await delay(100);
+  const promptIndex = sessionMockPrompts.findIndex(p => p.id === id);
+  if (promptIndex > -1) {
+      sessionMockPrompts.splice(promptIndex, 1);
+  } else {
+      console.warn("Prompt to delete was not found");
   }
+  return Promise.resolve();
+};
+
+export const getAdminPosts = async (): Promise<Post[]> => {
+  await delay(200);
+  const adminPosts: Post[] = sessionMockPosts.map(p => ({
+    id: p.id,
+    title: p.title,
+    author: {
+      id: p.author.id,
+      username: p.author.username,
+    },
+    tags: p.tags,
+    published_at: p.published_at,
+  }));
+  return Promise.resolve(adminPosts.sort((a, b) => new Date(b.published_at).getTime() - new Date(a.published_at).getTime()));
+};
+
+export const deletePostById = async (id: string): Promise<void> => {
+  await delay(100);
+  const postIndex = sessionMockPosts.findIndex(p => p.id === id);
+  if (postIndex > -1) {
+    sessionMockPosts.splice(postIndex, 1);
+  } else {
+    console.warn("Post to delete was not found");
+  }
+  return Promise.resolve();
 };

@@ -11,3 +11,11 @@ export interface Prompt {
   created_at: string;
   verified: boolean;
 }
+
+export interface Post {
+  id: string;
+  title: string;
+  author: User;
+  tags: string[];
+  published_at: string;
+}

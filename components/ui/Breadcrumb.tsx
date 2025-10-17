@@ -19,7 +19,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ items, className = '' }) => {
         {items.map((item, index) => (
           <li key={index} className="flex items-center">
             {item.href ? (
-              <Link to={item.href} className="hover:text-[#0A2647] hover:underline transition-colors">
+              <Link to={item.href} className="hover:text-orange-600 hover:underline transition-colors">
                 {item.label}
               </Link>
             ) : (

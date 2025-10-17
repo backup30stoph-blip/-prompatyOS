@@ -1,6 +1,6 @@
 import React, { createContext, useState, useContext, useEffect, ReactNode } from 'react';
-import { supabase } from '../services/supabaseClient';
 import { User } from '../types';
+import { mockUsers } from '../services/mockData';
 
 interface AuthContextType {
   user: User | null;
@@ -12,60 +12,51 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
+const MOCK_SESSION_KEY = 'mock_auth_session';
+
 export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const getSessionAndProfile = async () => {
-      const { data: { session }, error: sessionError } = await supabase.auth.getSession();
-      if (session?.user) {
-        const { data: profile } = await supabase
-          .from('users')
-          .select('*')
-          .eq('id', session.user.id)
-          .single();
-        setUser(profile as User | null);
+    // Simulate checking for a session in localStorage
+    try {
+      const session = localStorage.getItem(MOCK_SESSION_KEY);
+      if (session) {
+        // Log in the first mock user if a session exists
+        setUser(mockUsers[0]);
       }
-      setLoading(false);
-    };
-
-    getSessionAndProfile();
-
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        if (session?.user) {
-          const { data: profile } = await supabase
-            .from('users')
-            .select('*')
-            .eq('id', session.user.id)
-            .single();
-          setUser(profile as User | null);
-        } else {
-          setUser(null);
-        }
-        setLoading(false);
-      }
-    );
-
-    return () => {
-      subscription?.unsubscribe();
-    };
+    } catch (e) {
+      console.error('Failed to read mock session from localStorage', e);
+    }
+    setLoading(false);
   }, []);
 
-  const login = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
-      provider: 'github',
-    });
-    if (error) console.error('Error logging in with GitHub:', error);
+  const login = () => {
+    setLoading(true);
+    try {
+      // Set the first mock user as the logged-in user
+      const mockUser = mockUsers[0];
+      setUser(mockUser);
+      // Persist the mock session state to localStorage
+      localStorage.setItem(MOCK_SESSION_KEY, JSON.stringify({ userId: mockUser.id }));
+    } catch (e) {
+      console.error('Failed to save mock session to localStorage', e);
+    }
+    setLoading(false);
   };
 
-  const logout = async () => {
-    await supabase.auth.signOut();
-    setUser(null);
+  const logout = () => {
+    try {
+      // Clear user from state and remove session from localStorage
+      localStorage.removeItem(MOCK_SESSION_KEY);
+      setUser(null);
+    } catch (e) {
+      console.error('Failed to remove mock session from localStorage', e);
+    }
   };
   
-  // Mock stats for the profile dropdown can remain for now
+  // Mock stats for the profile dropdown
   const stats = {
       level: 5,
       level_icon: '🌟',

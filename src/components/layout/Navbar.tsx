@@ -124,13 +124,13 @@ const Navbar: React.FC = () => {
 
             {/* Right Side (Actions & Profile) */}
             <div className="flex-1 flex justify-end items-center gap-3">
-              <Link to="/prompts" className="hidden md:block" aria-label="Search">
+              <Link to="/prompts" className="show-above-486-block" aria-label="Search">
                   <Button variant="secondary" className="!p-2.5 bg-white" aria-label="Search">
                       <SearchIcon className="w-5 h-5" />
                   </Button>
               </Link>
               
-              <div className="relative hidden md:block" ref={createMenuRef}>
+              <div className="relative show-above-486-block" ref={createMenuRef}>
                   <Button onClick={() => setIsCreateMenuOpen(!isCreateMenuOpen)} className="!p-2.5" aria-label="إنشاء">
                       <PlusIcon className="w-5 h-5" />
                   </Button>
@@ -155,11 +155,13 @@ const Navbar: React.FC = () => {
               </div>
 
               {user ? (
-                <button onClick={() => setIsProfileModalOpen(true)} className="flex items-center gap-2 focus:outline-none p-1 rounded-full focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
-                    <img className="h-10 w-10 rounded-full" src={user.avatar_url} alt={user.username} />
-                </button>
+                <div className="show-above-486-flex items-center">
+                  <button onClick={() => setIsProfileModalOpen(true)} className="flex items-center gap-2 focus:outline-none p-1 rounded-full focus:ring-2 focus:ring-offset-2 focus:ring-orange-500">
+                      <img className="h-10 w-10 rounded-full" src={user.avatar_url} alt={user.username} />
+                  </button>
+                </div>
               ) : (
-                <div className="hidden md:flex items-center gap-3">
+                <div className="show-above-486-flex items-center gap-3">
                     <Link to="/login" aria-label="تسجيل الدخول">
                         <Button variant="secondary" className="!p-2.5 bg-white">
                             <LogInIcon className="w-5 h-5" />
@@ -174,7 +176,7 @@ const Navbar: React.FC = () => {
               )}
               
               {/* Mobile Menu Toggle */}
-              <div className="flex items-center md:hidden">
+              <div className="flex items-center hide-above-486">
                 <button
                   onClick={() => setIsMenuOpen(!isMenuOpen)}
                   type="button"

@@ -169,19 +169,19 @@ const SubmitPage: React.FC = () => {
     return (
         <div className="max-w-3xl mx-auto space-y-8">
             <header className="text-center">
-                <h1 className="text-3xl md:text-4xl font-bold text-[#303841]">
+                <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
                     أضف أمرًا جديدًا
                 </h1>
-                <p className="text-gray-600 mt-2">
+                <p className="text-slate-600 mt-2">
                     شارك أفضل أوامرك مع المجتمع أو استخدم الذكاء الاصطناعي للمساعدة.
                 </p>
             </header>
             
-            <div className="flex justify-center bg-gray-200 p-1 rounded-lg max-w-sm mx-auto">
-                <button onClick={() => setMode('manual')} className={`flex-1 py-2 px-4 rounded-md text-sm font-semibold transition-colors ${mode === 'manual' ? 'bg-white shadow' : 'text-gray-600'}`}>
+            <div className="flex justify-center bg-slate-200 p-1 rounded-lg max-w-sm mx-auto">
+                <button onClick={() => setMode('manual')} className={`flex-1 py-2 px-4 rounded-md text-sm font-semibold transition-colors ${mode === 'manual' ? 'bg-white shadow' : 'text-slate-600'}`}>
                     إدخال يدوي
                 </button>
-                <button onClick={() => setMode('ai')} className={`flex-1 py-2 px-4 rounded-md text-sm font-semibold transition-colors ${mode === 'ai' ? 'bg-white shadow' : 'text-gray-600'}`}>
+                <button onClick={() => setMode('ai')} className={`flex-1 py-2 px-4 rounded-md text-sm font-semibold transition-colors ${mode === 'ai' ? 'bg-white shadow' : 'text-slate-600'}`}>
                     <SparklesIcon className="w-4 h-4 inline me-1"/>
                     توليد بـ AI
                 </button>
@@ -193,11 +193,11 @@ const SubmitPage: React.FC = () => {
                         {isApiKeySet ? (
                             <>
                                 <div>
-                                    <label htmlFor="aiTopic" className="block text-sm font-medium text-[#303841] mb-1">الموضوع الرئيسي للأمر</label>
+                                    <label htmlFor="aiTopic" className="block text-sm font-medium text-slate-700 mb-1">الموضوع الرئيسي للأمر</label>
                                     <Input id="aiTopic" value={aiTopic} onChange={(e) => setAiTopic(e.target.value)} placeholder="مثال: خطة تسويقية لمنتج جديد" />
                                 </div>
                                 <div>
-                                    <label htmlFor="aiContext" className="block text-sm font-medium text-[#303841] mb-1">سياق أو تفاصيل إضافية (اختياري)</label>
+                                    <label htmlFor="aiContext" className="block text-sm font-medium text-slate-700 mb-1">سياق أو تفاصيل إضافية (اختياري)</label>
                                     <Textarea id="aiContext" value={aiContext} onChange={(e) => setAiContext(e.target.value)} rows={4} placeholder="مثال: المنتج هو تطبيق جوال للياقة البدنية يستهدف الشباب" />
                                 </div>
                                 <Button onClick={handleGenerateWithAi} disabled={isGenerating} className="w-full sm:w-auto">
@@ -216,25 +216,25 @@ const SubmitPage: React.FC = () => {
                     <Card>
                         <div className="p-6 space-y-6">
                             <div>
-                                <label htmlFor="title" className="block text-sm font-medium text-[#303841] mb-1">عنوان الأمر</label>
+                                <label htmlFor="title" className="block text-sm font-medium text-slate-700 mb-1">عنوان الأمر</label>
                                 <Input id="title" name="title" value={formData.title} onChange={handleChange} placeholder="مثال: إنشاء وصفة طعام مبتكرة" required />
                             </div>
                             <div>
-                                <label htmlFor="slug" className="block text-sm font-medium text-[#303841] mb-1">الرابط المختصر (Slug)</label>
+                                <label htmlFor="slug" className="block text-sm font-medium text-slate-700 mb-1">الرابط المختصر (Slug)</label>
                                 <div className="flex items-center gap-2">
                                     <Input id="slug" name="slug" value={formData.slug} onChange={handleSlugChange} required />
-                                    {slugStatus === 'checking' && <Loader2Icon className="w-5 h-5 animate-spin text-gray-400" />}
+                                    {slugStatus === 'checking' && <Loader2Icon className="w-5 h-5 animate-spin text-slate-400" />}
                                     {slugStatus === 'valid' && <span className="text-green-600 text-xs">متاح</span>}
                                     {slugStatus === 'invalid' && <button type="button" onClick={handleSuggestSlug} className="text-red-600 text-xs hover:underline whitespace-nowrap">مستخدم، اقترح؟</button>}
                                 </div>
                             </div>
                             <div>
-                                <label htmlFor="prompt_text" className="block text-sm font-medium text-[#303841] mb-1">نص الأمر</label>
+                                <label htmlFor="prompt_text" className="block text-sm font-medium text-slate-700 mb-1">نص الأمر</label>
                                 <Textarea id="prompt_text" name="prompt_text" value={formData.prompt_text} onChange={handleChange} rows={8} placeholder="اكتب نص الأمر هنا..." required />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <div>
-                                    <label htmlFor="category" className="block text-sm font-medium text-[#303841] mb-1">الفئة</label>
+                                    <label htmlFor="category" className="block text-sm font-medium text-slate-700 mb-1">الفئة</label>
                                     <Select id="category" name="category" value={formData.category} onChange={handleChange} required>
                                         {Object.entries(promptCategoryTranslations).map(([key, value]) => (
                                             <option key={key} value={key}>{value}</option>
@@ -242,7 +242,7 @@ const SubmitPage: React.FC = () => {
                                     </Select>
                                 </div>
                                 <div>
-                                    <label htmlFor="level" className="block text-sm font-medium text-[#303841] mb-1">المستوى</label>
+                                    <label htmlFor="level" className="block text-sm font-medium text-slate-700 mb-1">المستوى</label>
                                     <Select id="level" name="level" value={formData.level} onChange={handleChange} required>
                                         {Object.entries(promptLevelTranslations).map(([key, value]) => (
                                             <option key={key} value={key}>{value}</option>
@@ -251,7 +251,7 @@ const SubmitPage: React.FC = () => {
                                 </div>
                             </div>
                             <div>
-                                <label htmlFor="language" className="block text-sm font-medium text-[#303841] mb-1">اللغة</label>
+                                <label htmlFor="language" className="block text-sm font-medium text-slate-700 mb-1">اللغة</label>
                                 <Select id="language" name="language" value={formData.language} onChange={handleChange} required>
                                     {Object.entries(promptLanguageTranslations).map(([key, value]) => (
                                         <option key={key} value={key}>{value}</option>
@@ -259,11 +259,11 @@ const SubmitPage: React.FC = () => {
                                 </Select>
                             </div>
                             <div>
-                                <label htmlFor="tags" className="block text-sm font-medium text-[#303841] mb-1">العلامات (Tags)</label>
+                                <label htmlFor="tags" className="block text-sm font-medium text-slate-700 mb-1">العلامات (Tags)</label>
                                 <Input id="tags" name="tags" value={formData.tags} onChange={handleChange} placeholder="تلخيص, أكاديمي, علمي" />
-                                <p className="text-xs text-gray-500 mt-1">افصل بين العلامات بفاصلة (,).</p>
+                                <p className="text-xs text-slate-500 mt-1">افصل بين العلامات بفاصلة (,).</p>
                             </div>
-                            <div className="pt-4 border-t border-gray-200">
+                            <div className="pt-4 border-t border-slate-200">
                                 <Button type="submit" disabled={isSubmitting || slugStatus !== 'valid'} className="w-full sm:w-auto">
                                     {isSubmitting ? <><Loader2Icon className="w-5 h-5 me-2 animate-spin"/> جاري الإرسال...</> : <><PlusIcon className="w-5 h-5 me-2"/> أضف الأمر</>}
                                 </Button>

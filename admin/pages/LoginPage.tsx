@@ -34,14 +34,14 @@ const LoginPage: React.FC = () => {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gray-100 px-4">
+    <div className="flex min-h-screen items-center justify-center bg-slate-100 px-4">
       <div className="w-full max-w-md space-y-4">
-        <h1 className="text-center text-3xl font-bold text-gray-800">Admin Dashboard</h1>
+        <h1 className="text-center text-3xl font-bold text-slate-800">Admin Dashboard</h1>
         <Card>
             <form onSubmit={handleLogin} className="p-8 space-y-6">
                  {error && <p className="text-red-500 text-sm text-center bg-red-50 p-3 rounded-md">{error}</p>}
                 <div>
-                    <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1">
                         البريد الإلكتروني
                     </label>
                     <Input
@@ -54,7 +54,7 @@ const LoginPage: React.FC = () => {
                     />
                 </div>
                 <div>
-                    <label htmlFor="password_unc" className="block text-sm font-medium text-gray-700 mb-1">
+                    <label htmlFor="password_unc" className="block text-sm font-medium text-slate-700 mb-1">
                         كلمة المرور
                     </label>
                     <Input
@@ -69,6 +69,9 @@ const LoginPage: React.FC = () => {
                 <Button type="submit" className="w-full" disabled={loading}>
                     {loading ? 'جاري تسجيل الدخول...' : 'تسجيل الدخول'}
                 </Button>
+                <p className="text-xs text-center text-slate-500 pt-4">
+                    Use: <code className="font-mono bg-slate-200 p-1 rounded">admin@prompaty.com</code> / <code className="font-mono bg-slate-200 p-1 rounded">password</code>
+                </p>
             </form>
         </Card>
       </div>

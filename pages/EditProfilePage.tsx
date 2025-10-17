@@ -29,8 +29,8 @@ const ToggleSwitch: React.FC<{ checked: boolean; onChange: (checked: boolean) =>
         role="switch"
         aria-checked={checked}
         onClick={() => onChange(!checked)}
-        className={`relative inline-flex h-[22px] w-[42px] flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-[#D72323] ${
-        checked ? 'bg-[#D72323]' : 'bg-gray-300'
+        className={`relative inline-flex h-[22px] w-[42px] flex-shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-white focus:ring-orange-500 ${
+        checked ? 'bg-orange-500' : 'bg-slate-300'
         }`}
     >
         <span
@@ -158,8 +158,8 @@ const EditProfilePage: React.FC = () => {
     return (
         <div className="max-w-4xl mx-auto space-y-8">
             <header>
-                <h1 className="text-3xl font-bold text-[#303841]">إعدادات الحساب</h1>
-                <p className="text-gray-600 mt-2">
+                <h1 className="text-3xl font-bold text-slate-800">إعدادات الحساب</h1>
+                <p className="text-slate-600 mt-2">
                     إدارة ملفك الشخصي العام وتفاصيل حسابك.
                 </p>
             </header>
@@ -167,12 +167,12 @@ const EditProfilePage: React.FC = () => {
             <form onSubmit={handleSaveChanges}>
                 {/* Public Profile Section */}
                 <Card className="mb-8">
-                    <div className="p-4 border-b border-gray-200">
+                    <div className="p-4 border-b border-slate-200">
                         <h2 className="text-lg font-bold">الملف الشخصي العام</h2>
                     </div>
                     <div className="p-6 space-y-6">
                         {/* Profile Banner */}
-                        <div className="h-40 bg-gray-200 rounded-lg flex items-center justify-center relative group">
+                        <div className="h-40 bg-slate-200 rounded-lg flex items-center justify-center relative group">
                             <img src={bannerPreview || `https://picsum.photos/seed/${user.id}/1000/250`} alt="Profile Banner" className="w-full h-full object-cover rounded-lg" />
                             <div className="absolute inset-0 bg-black/40 rounded-lg sm:opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                                 <label htmlFor="banner-upload" className="cursor-pointer">
@@ -199,7 +199,7 @@ const EditProfilePage: React.FC = () => {
                                 </label>
                             </div>
                             {avatarPreview && (
-                                <Button type="button" onClick={() => handleRemoveImage('avatar')} variant="secondary" className="!text-xs ms-4 bg-white hover:bg-gray-100 border border-gray-300">
+                                <Button type="button" onClick={() => handleRemoveImage('avatar')} variant="secondary" className="!text-xs ms-4 bg-white hover:bg-slate-100 border border-slate-300">
                                     <TrashIcon className="w-3 h-3 me-1" />
                                     إزالة
                                 </Button>
@@ -215,7 +215,7 @@ const EditProfilePage: React.FC = () => {
                             <div>
                                 <label className="block text-sm font-medium mb-1">اسم المستخدم</label>
                                 <div className="relative">
-                                    <span className="absolute inset-y-0 start-0 flex items-center ps-3 text-gray-500">@</span>
+                                    <span className="absolute inset-y-0 start-0 flex items-center ps-3 text-slate-500">@</span>
                                     <Input name="username" value={profile.username} onChange={handleInputChange} className="ps-7" />
                                 </div>
                             </div>
@@ -224,24 +224,24 @@ const EditProfilePage: React.FC = () => {
                         <div>
                             <label className="block text-sm font-medium mb-1">نبذة تعريفية</label>
                             <Textarea name="bio" value={profile.bio} onChange={handleInputChange} rows={3} maxLength={160} />
-                            <p className="text-xs text-gray-500 mt-1">{160 - profile.bio.length} حرف متبقي</p>
+                            <p className="text-xs text-slate-500 mt-1">{160 - profile.bio.length} حرف متبقي</p>
                         </div>
 
                         {/* Social Links */}
                         <div className="space-y-4">
                             <div className="relative">
                                 <label className="block text-sm font-medium mb-1">الموقع الإلكتروني</label>
-                                <span className="absolute inset-y-0 start-0 flex items-center ps-3 top-7 text-gray-400"><LinkIcon className="w-4 h-4"/></span>
+                                <span className="absolute inset-y-0 start-0 flex items-center ps-3 top-7 text-slate-400"><LinkIcon className="w-4 h-4"/></span>
                                 <Input name="website" value={profile.website} onChange={handleInputChange} className="ps-9" placeholder="https://..." />
                             </div>
                              <div className="relative">
                                 <label className="block text-sm font-medium mb-1">تويتر (X)</label>
-                                <span className="absolute inset-y-0 start-0 flex items-center ps-3 top-7 text-gray-400"><TwitterIcon className="w-4 h-4"/></span>
+                                <span className="absolute inset-y-0 start-0 flex items-center ps-3 top-7 text-slate-400"><TwitterIcon className="w-4 h-4"/></span>
                                 <Input name="twitter" value={profile.social.twitter} onChange={handleSocialChange} className="ps-9" placeholder="username" />
                             </div>
                              <div className="relative">
                                 <label className="block text-sm font-medium mb-1">GitHub</label>
-                                <span className="absolute inset-y-0 start-0 flex items-center ps-3 top-7 text-gray-400"><GithubIcon className="w-4 h-4"/></span>
+                                <span className="absolute inset-y-0 start-0 flex items-center ps-3 top-7 text-slate-400"><GithubIcon className="w-4 h-4"/></span>
                                 <Input name="github" value={profile.social.github} onChange={handleSocialChange} className="ps-9" placeholder="username" />
                             </div>
                         </div>
@@ -250,21 +250,21 @@ const EditProfilePage: React.FC = () => {
 
                 {/* Account Settings Section */}
                 <Card className="mb-8">
-                    <div className="p-4 border-b border-gray-200">
+                    <div className="p-4 border-b border-slate-200">
                         <h2 className="text-lg font-bold">إعدادات الحساب</h2>
                     </div>
-                    <div className="p-6 space-y-4 divide-y divide-gray-200">
+                    <div className="p-6 space-y-4 divide-y divide-slate-200">
                          <div className="flex items-center justify-between pt-4 first:pt-0">
                             <div>
                                 <h3 className="font-medium">البريد الإلكتروني</h3>
-                                <p className="text-sm text-gray-500">{profile.email}</p>
+                                <p className="text-sm text-slate-500">{profile.email}</p>
                             </div>
                             <Button type="button" variant="secondary" className="bg-white border">تغيير</Button>
                         </div>
                          <div className="flex items-center justify-between pt-4 first:pt-0">
                             <div>
                                 <h3 className="font-medium">كلمة المرور</h3>
-                                <p className="text-sm text-gray-500">آخر تحديث منذ شهرين</p>
+                                <p className="text-sm text-slate-500">آخر تحديث منذ شهرين</p>
                             </div>
                             <Button type="button" variant="secondary" className="bg-white border">تغيير</Button>
                         </div>
@@ -273,28 +273,28 @@ const EditProfilePage: React.FC = () => {
                 
                 {/* Notifications Section */}
                 <Card className="mb-8">
-                    <div className="p-4 border-b border-gray-200">
+                    <div className="p-4 border-b border-slate-200">
                         <h2 className="text-lg font-bold">الإشعارات</h2>
                     </div>
-                    <div className="p-6 space-y-4 divide-y divide-gray-200">
+                    <div className="p-6 space-y-4 divide-y divide-slate-200">
                         <div className="flex items-center justify-between pt-4 first:pt-0">
                             <div>
                                 <h3 className="font-medium">متابعون جدد</h3>
-                                <p className="text-sm text-gray-500">إشعار عند حصولك على متابع جديد.</p>
+                                <p className="text-sm text-slate-500">إشعار عند حصولك على متابع جديد.</p>
                             </div>
                             <ToggleSwitch checked={profile.notifications.newFollowers} onChange={(val) => handleNotificationChange('newFollowers', val)} />
                         </div>
                          <div className="flex items-center justify-between pt-4 first:pt-0">
                             <div>
                                 <h3 className="font-medium">الإعجابات على الأوامر</h3>
-                                <p className="text-sm text-gray-500">إشعار عند إعجاب شخص ما بأمر قمت بإضافته.</p>
+                                <p className="text-sm text-slate-500">إشعار عند إعجاب شخص ما بأمر قمت بإضافته.</p>
                             </div>
                             <ToggleSwitch checked={profile.notifications.promptLikes} onChange={(val) => handleNotificationChange('promptLikes', val)} />
                         </div>
                          <div className="flex items-center justify-between pt-4 first:pt-0">
                             <div>
                                 <h3 className="font-medium">النشرة البريدية</h3>
-                                <p className="text-sm text-gray-500">تلقي تحديثات وعروض من برمباتي.</p>
+                                <p className="text-sm text-slate-500">تلقي تحديثات وعروض من برمباتي.</p>
                             </div>
                             <ToggleSwitch checked={profile.notifications.newsletter} onChange={(val) => handleNotificationChange('newsletter', val)} />
                         </div>
@@ -322,7 +322,7 @@ const EditProfilePage: React.FC = () => {
                 </Card>
 
                 {/* Sticky Footer for Actions */}
-                <div className={`lg:sticky mt-2 bottom-0 bg-white/80 backdrop-blur-sm border-t border-gray-200 py-3 px-6 rounded-t-lg transition-transform duration-300 ${isDirty ? 'translate-y-0' : 'translate-y-full'}`}>
+                <div className={`lg:sticky mt-2 bottom-0 bg-white/80 backdrop-blur-sm border-t border-slate-200 py-3 px-6 rounded-t-lg transition-transform duration-300 ${isDirty ? 'translate-y-0' : 'translate-y-full'}`}>
                     <div className="max-w-4xl mx-auto flex justify-between items-center">
                         <p className="text-sm font-medium">لديك تغييرات غير محفوظة!</p>
                         <div className="flex gap-3">
@@ -339,8 +339,8 @@ const EditProfilePage: React.FC = () => {
                     <div className="mx-auto bg-red-100 w-12 h-12 rounded-full flex items-center justify-center">
                         <AlertCircleIcon className="w-6 h-6 text-red-600" />
                     </div>
-                    <h3 className="text-lg font-medium text-gray-900 mt-5">هل أنت متأكد؟</h3>
-                    <p className="text-sm text-gray-500 mt-2">
+                    <h3 className="text-lg font-medium text-slate-900 mt-5">هل أنت متأكد؟</h3>
+                    <p className="text-sm text-slate-500 mt-2">
                         سيتم حذف حسابك نهائيًا. للتأكيد، يرجى كتابة اسم المستخدم الخاص بك: <strong className="text-red-600">{user.username}</strong>
                     </p>
                     <div className="mt-4">

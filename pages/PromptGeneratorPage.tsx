@@ -67,10 +67,10 @@ const PromptGeneratorPage: React.FC = () => {
     
     const pageHeader = (
         <header className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-[#303841]">
+            <h1 className="text-3xl md:text-4xl font-bold text-slate-800">
                 مولّد الأوامر الذكي
             </h1>
-            <p className="text-gray-600 mt-2">
+            <p className="text-slate-600 mt-2">
                 حوّل فكرتك البسيطة إلى أمر مفصّل وقوي باستخدام الذكاء الاصطناعي.
             </p>
         </header>
@@ -91,7 +91,7 @@ const PromptGeneratorPage: React.FC = () => {
             <Card>
                 <div className="p-6 space-y-6">
                     <div>
-                        <label htmlFor="idea" className="block text-sm font-medium text-[#303841] mb-2">
+                        <label htmlFor="idea" className="block text-sm font-medium text-slate-700 mb-2">
                             اكتب فكرتك أو موضوعك هنا:
                         </label>
                         <Textarea
@@ -118,7 +118,7 @@ const PromptGeneratorPage: React.FC = () => {
                 <Card>
                     <div className="p-6">
                         <div className="flex justify-between items-center mb-4">
-                            <h2 className="text-lg font-bold text-[#1C2B3A]">الأمر المقترح:</h2>
+                            <h2 className="text-lg font-bold text-slate-800">الأمر المقترح:</h2>
                             {generatedPrompt && !isLoading && (
                                 <div className="flex gap-2">
                                      <Button onClick={handleCopy} variant="secondary" className="!p-2 h-9 w-9 bg-white">
@@ -132,11 +132,11 @@ const PromptGeneratorPage: React.FC = () => {
                         </div>
                         {isLoading && !generatedPrompt && (
                              <div className="flex justify-center items-center py-10">
-                                <Loader2Icon className="w-8 h-8 text-gray-400 animate-spin" />
+                                <Loader2Icon className="w-8 h-8 text-slate-400 animate-spin" />
                             </div>
                         )}
                         {generatedPrompt && (
-                            <div className="bg-gray-50 text-gray-800 p-4 rounded-lg font-mono text-sm leading-relaxed whitespace-pre-wrap">
+                            <div className="bg-slate-50 text-slate-800 p-4 rounded-lg font-mono text-sm leading-relaxed whitespace-pre-wrap">
                                 {generatedPrompt}
                             </div>
                         )}

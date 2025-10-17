@@ -1,15 +1,9 @@
-// FIX: Removed reference to 'vite/client' which was causing a type error.
-// The use of `(import.meta as any)` below bypasses the need for these types at compile time.
-
 import { createClient } from '@supabase/supabase-js';
 
-// FIX: Cast `import.meta` to `any` to access `env` without TypeScript errors,
-// as the required 'vite/client' types were not being found.
-const supabaseUrl = (import.meta as any).env.VITE_SUPABASE_URL;
-const supabaseKey = (import.meta as any).env.VITE_SUPABASE_ANON_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error("Supabase URL and anonymous key are required for the admin panel.");
-}
+// Using placeholder credentials to prevent the application from crashing.
+// To connect to your Supabase instance, replace these placeholders with your
+// actual Supabase URL and anonymous key.
+const supabaseUrl = 'https://placeholder.supabase.co';
+const supabaseKey = 'placeholder.anon.key';
 
 export const supabase = createClient(supabaseUrl, supabaseKey);

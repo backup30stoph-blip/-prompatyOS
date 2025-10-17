@@ -4,7 +4,6 @@ import { AuthProvider } from './contexts/AuthContext';
 import { SearchProvider } from './contexts/SearchContext';
 import { ToastProvider } from './contexts/ToastContext';
 import { ApiKeyProvider } from './contexts/ApiKeyContext';
-import { SpeedInsights } from "@vercel/speed-insights/react";
 
 import MainLayout from './components/layout/MainLayout';
 import ProtectedRoute from './components/router/ProtectedRoute';
@@ -55,7 +54,6 @@ const App: React.FC = () => {
           <ApiKeyProvider>
             <Router>
                 <ScrollToTop />
-                <SpeedInsights />
                 <MainLayout>
                   <Routes>
                     <Route path="/" element={<HomePage />} />

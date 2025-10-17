@@ -6,7 +6,7 @@ import { Prompt } from '../types';
 import PromptCard from '../components/PromptCard';
 import Button from '../components/ui/Button';
 import ProfileHeaderCard from '../components/ProfileHeaderCard';
-import { Loader2Icon } from '../components/icons';
+import PromptCardSkeleton from '../components/PromptCardSkeleton';
 
 const ProfilePage: React.FC = () => {
   const { user } = useAuth();
@@ -42,14 +42,14 @@ const ProfilePage: React.FC = () => {
       
       <section>
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-2xl font-bold text-[#303841]">الأوامر التي أضفتها</h2>
+          <h2 className="text-2xl font-bold text-slate-800">الأوامر التي أضفتها</h2>
           <Link to="/submit">
             <Button>أضف أمرًا جديدًا</Button>
           </Link>
         </div>
         {loading ? (
-            <div className="flex justify-center items-center py-16">
-              <Loader2Icon className="w-8 h-8 text-gray-400 animate-spin" />
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {Array.from({ length: 3 }).map((_, i) => <PromptCardSkeleton key={i} />)}
             </div>
         ) : error ? (
             <div className="text-center py-16 text-red-600">{error}</div>
@@ -60,7 +60,7 @@ const ProfilePage: React.FC = () => {
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 text-gray-600 bg-white border border-gray-200 rounded-lg">
+          <div className="text-center py-16 text-slate-600 bg-white border border-slate-200 rounded-lg">
               <p>لم تقم بإضافة أي أوامر حتى الآن.</p>
           </div>
         )}

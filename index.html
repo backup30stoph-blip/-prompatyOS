@@ -33,28 +33,6 @@
       .animate-slide-in-down {
         animation: slide-in-down 0.3s ease-out forwards;
       }
-      /* For Navbar underline effect */
-      .nav-link-underline {
-        position: relative;
-        text-decoration: none;
-      }
-      .nav-link-underline::after {
-        content: '';
-        position: absolute;
-        width: 100%;
-        transform: scaleX(0);
-        height: 2px;
-        bottom: -4px; /* Adjust position */
-        left: 0;
-        background-color: #0A2647; /* Primary color */
-        transform-origin: bottom right;
-        transition: transform 0.25s ease-out;
-      }
-      .nav-link-underline:hover::after,
-      .nav-link-underline.active::after {
-        transform: scaleX(1);
-        transform-origin: bottom left;
-      }
       /* Trumbowyg Responsive Styles */
       .trumbowyg-box, .trumbowyg-editor {
           width: 100% !important;
@@ -65,6 +43,21 @@
           display: flex;
           flex-wrap: wrap;
       }
+      /* Custom breakpoint for mobile menu at 486px */
+      .show-above-486-block, .show-above-486-flex {
+        display: none;
+      }
+      @media (min-width: 487px) {
+        .hide-above-486 {
+          display: none;
+        }
+        .show-above-486-block {
+          display: block;
+        }
+        .show-above-486-flex {
+          display: flex;
+        }
+      }
     </style>
   <script type="importmap">
 {
@@ -74,13 +67,12 @@
     "react": "https://aistudiocdn.com/react@^19.2.0",
     "react-router-dom": "https://aistudiocdn.com/react-router-dom@^7.9.4",
     "@google/genai": "https://aistudiocdn.com/@google/genai@^1.24.0",
-    "@supabase/supabase-js": "https://aistudiocdn.com/@supabase/supabase-js@^2.44.4",
-    "@vercel/speed-insights/": "https://aistudiocdn.com/@vercel/speed-insights@^1.2.0/"
+    "@supabase/supabase-js": "https://aistudiocdn.com/@supabase/supabase-js@^2.44.4"
   }
 }
 </script>
 </head>
-  <body class="bg-[#F8F9FA] text-[#344054]">
+  <body class="bg-slate-50 text-slate-700">
     <div id="root"></div>
 
     <!-- jQuery -->
@@ -97,6 +89,6 @@
       }
     </script>
     
-    <script type="module" src="/index.tsx"></script>
+    <script type="module" src="/src/index.tsx"></script>
   </body>
 </html>

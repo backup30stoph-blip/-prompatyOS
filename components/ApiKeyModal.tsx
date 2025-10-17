@@ -41,17 +41,17 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose }) => {
       <div className="p-6">
         <div className="flex justify-between items-start">
           <div className="flex items-center gap-3">
-            <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${isApiKeySet ? 'bg-green-100' : 'bg-blue-100'}`}>
-              <KeyIcon className={`w-6 h-6 ${isApiKeySet ? 'text-green-600' : 'text-blue-600'}`} />
+            <div className={`flex-shrink-0 w-10 h-10 rounded-lg flex items-center justify-center ${isApiKeySet ? 'bg-green-100' : 'bg-orange-100'}`}>
+              <KeyIcon className={`w-6 h-6 ${isApiKeySet ? 'text-green-600' : 'text-orange-600'}`} />
             </div>
             <div>
-              <h2 className="text-lg font-bold text-[#1C2B3A]">إدارة مفتاح Gemini API</h2>
-              <p className="text-sm text-gray-600">
+              <h2 className="text-lg font-bold text-slate-800">إدارة مفتاح Gemini API</h2>
+              <p className="text-sm text-slate-600">
                 مفتاحك يُحفظ في متصفحك فقط.
               </p>
             </div>
           </div>
-          <button onClick={onClose} className="p-1 rounded-full text-gray-400 hover:bg-gray-100 -mt-1 -me-1">
+          <button onClick={onClose} className="p-1 rounded-full text-slate-400 hover:bg-slate-100 -mt-1 -me-1">
             <CloseIcon className="w-5 h-5" />
           </button>
         </div>
@@ -77,7 +77,7 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose }) => {
             </div>
           ) : (
             <div className="space-y-4">
-              <label htmlFor="apiKeyInput" className="block text-sm font-medium text-gray-700">
+              <label htmlFor="apiKeyInput" className="block text-sm font-medium text-slate-700">
                 أدخل مفتاح Gemini API الخاص بك
               </label>
               <Input
@@ -96,14 +96,14 @@ const ApiKeyModal: React.FC<ApiKeyModalProps> = ({ isOpen, onClose }) => {
           )}
         </div>
 
-        <div className="mt-6 text-xs text-gray-600 bg-blue-50 p-4 rounded-lg flex items-start gap-3 border border-blue-200">
-          <InfoIcon className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+        <div className="mt-6 text-xs text-slate-600 bg-orange-50 p-4 rounded-lg flex items-start gap-3 border border-orange-200">
+          <InfoIcon className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
           <div>
-            <h4 className="font-semibold text-blue-800 mb-1">كيف أحصل على مفتاح API؟</h4>
+            <h4 className="font-semibold text-orange-800 mb-1">كيف أحصل على مفتاح API؟</h4>
             <p className="leading-relaxed">
               يمكنك الحصول على مفتاح API مجاني لـ Gemini من Google AI Studio. المفتاح ضروري لتشغيل ميزات التوليد بالذكاء الاصطناعي في هذا التطبيق.
               {' '}
-              <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="font-bold text-blue-700 hover:underline">
+              <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer" className="font-bold text-orange-700 hover:underline">
                 احصل على مفتاحك من هنا
               </a>.
             </p>
